@@ -123,7 +123,7 @@ Color _toColor(DateTime? expiry, BuildContext context) {
             ),
             _documentRow(
               context,
-              'Rovinieta',
+              'Rovinietă',
               Icons.receipt_long_outlined,
               car.vignetteExpiry,
             ),

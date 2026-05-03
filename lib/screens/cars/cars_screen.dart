@@ -7,6 +7,7 @@ import '../../providers/car_provider.dart';
 import '../../providers/user_profile_provider.dart';
 import 'add_car_screen.dart';
 import '../../widgets/car_card.dart';
+import 'car_detail_screen.dart';
 
 class CarsScreen extends ConsumerWidget {
   const CarsScreen({super.key});
@@ -59,7 +60,15 @@ class CarsScreen extends ConsumerWidget {
             itemCount: carList.length,
             itemBuilder: (context, index) {
               final car = carList[index];
-              return CarCard(car: car);
+              return GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        CarDetailScreen(car: car, familyId: familyId),
+                  ),
+                ),
+                child: CarCard(car: car),
+              );
             },
           );
         },

@@ -18,4 +18,8 @@ class CarService {
   Future<void> addCar(String familyId, Car car) async {
     await _ref.read(carRepositoryProvider).addCar(familyId, car);
   }
+
+  Future<void> updateCar(String familyId, Car car) async {
+    await _ref.read(carRepositoryProvider).updateCar(familyId, car);
+  }
 }
