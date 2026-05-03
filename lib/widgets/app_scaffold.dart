@@ -7,6 +7,7 @@ class AppScaffold extends ConsumerWidget {
   final String? title;
   final List<Widget>? actions;
   final Widget? floatingActionButton;
+  final Widget? bottomWidget;
 
   const AppScaffold({
     super.key,
@@ -14,6 +15,7 @@ class AppScaffold extends ConsumerWidget {
     this.title,
     this.actions,
     this.floatingActionButton,
+    this.bottomWidget,
   });
 
   @override
@@ -40,6 +42,12 @@ class AppScaffold extends ConsumerWidget {
       ),
       body: body,
       floatingActionButton: floatingActionButton,
+      bottomNavigationBar: bottomWidget != null
+          ? Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+              child: bottomWidget,
+            )
+          : null,
     );
   }
 }

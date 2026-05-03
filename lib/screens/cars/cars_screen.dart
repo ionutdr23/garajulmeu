@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:garajulmeu/widgets/app_scaffold.dart';
-
-import '../../providers/auth_provider.dart';
-import '../../providers/car_provider.dart';
-import '../../providers/user_profile_provider.dart';
-import 'add_car_screen.dart';
-import '../../widgets/car_card.dart';
-import 'car_detail_screen.dart';
+import 'package:garajulmeu/providers/auth_provider.dart';
+import 'package:garajulmeu/providers/user_profile_provider.dart';
+import 'package:garajulmeu/providers/car_provider.dart';
+import 'package:garajulmeu/screens/cars/add_car_screen.dart';
+import 'package:garajulmeu/widgets/car_card.dart';
+import 'package:garajulmeu/screens/cars/car_detail_screen.dart';
 
 class CarsScreen extends ConsumerWidget {
   const CarsScreen({super.key});

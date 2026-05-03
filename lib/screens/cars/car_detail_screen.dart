@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:garajulmeu/providers/maintenance_provider.dart';
+import 'package:garajulmeu/screens/cars/edit_car_screen.dart';
+import 'package:garajulmeu/screens/maintenance/add_maintenance_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:garajulmeu/theme.dart';
 import 'package:garajulmeu/widgets/app_scaffold.dart';
 import '../../models/car.dart';
 import '../../providers/car_provider.dart';
+import '../../widgets/app_button.dart';
 
 class CarDetailScreen extends ConsumerWidget {
   final Car car;
@@ -26,12 +30,59 @@ class CarDetailScreen extends ConsumerWidget {
 
     return AppScaffold(
       title: currentCar.name,
+      bottomWidget: SizedBox(
+        width: double.infinity,
+        child: AppButton(
+          text: 'Șterge mașina',
+          type: AppButtonType.destructive,
+          icon: const Icon(Icons.delete_outline, color: Colors.white),
+          onPressed: () async {
+            final confirmed = await showDialog<bool>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Confirmare ștergere'),
+                content: const Text(
+                  'Ești sigur că vrei să ștergi această mașină? Această acțiune nu poate fi anulată.',
+                ),
+                actions: [
+                  AppButton(
+                    text: 'Anulează',
+                    type: AppButtonType.secondary,
+                    icon: const Icon(Icons.close_outlined),
+                    onPressed: () => Navigator.of(context).pop(false),
+                  ),
+                  AppButton(
+                    text: 'Șterge',
+                    type: AppButtonType.destructive,
+                    icon: const Icon(Icons.delete_outline, color: Colors.white),
+                    onPressed: () => Navigator.of(context).pop(true),
+                  ),
+                ],
+              ),
+            );
+            if (confirmed == true) {
+              await ref
+                  .read(carServiceProvider)
+                  .deleteCar(familyId, currentCar);
+              if (!context.mounted) return;
+              Navigator.of(context).pop();
+            }
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _CarHeader(car: currentCar),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => EditCarScreen(car: currentCar),
+                ),
+              ),
+              child: _CarHeader(car: currentCar),
+            ),
             const SizedBox(height: 24),
             _SectionTitle(title: 'Documente'),
             const SizedBox(height: 8),
@@ -93,9 +144,28 @@ class CarDetailScreen extends ConsumerWidget {
               },
             ),
             const SizedBox(height: 24),
-            _SectionTitle(title: 'Mentenanță'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _SectionTitle(title: 'Mentenanță'),
+                IconButton(
+                  icon: Icon(
+                    Icons.add_circle_outline,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => AddMaintenanceScreen(
+                        carId: currentCar.id,
+                        familyId: familyId,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
-            const Center(child: Text('Nu există înregistrări de mentenanță.')),
+            _MaintenanceList(familyId: familyId, carId: currentCar.id),
           ],
         ),
       ),
@@ -118,25 +188,33 @@ class _CarHeader extends StatelessWidget {
           children: [
             const Icon(Icons.directions_car, size: 48),
             const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  car.name,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(car.plate, style: Theme.of(context).textTheme.bodyLarge),
-                Text(
-                  'An fabricație: ${car.year}',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.6),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    car.name,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                  Text(car.plate, style: Theme.of(context).textTheme.bodyLarge),
+                  Text(
+                    'An fabricație: ${car.year}',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
             ),
           ],
         ),
@@ -180,7 +258,9 @@ class _DocumentTile extends StatelessWidget {
     }
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final now = DateTime.now();
-    if (expiry!.isBefore(now.add(const Duration(days: 15)))) return Theme.of(context).colorScheme.error;
+    if (expiry!.isBefore(now.add(const Duration(days: 15)))) {
+      return Theme.of(context).colorScheme.error;
+    }
     if (expiry!.isBefore(now.add(const Duration(days: 30)))) {
       return isDark ? AppTheme.draculaYellow : AppTheme.lightYellow;
     }
@@ -227,6 +307,53 @@ class _DocumentTile extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _MaintenanceList extends ConsumerWidget {
+  final String familyId;
+  final String carId;
+
+  const _MaintenanceList({required this.familyId, required this.carId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final maintenanceAsync = ref.watch(
+      maintenanceProvider((familyId, carId)),
+    );
+
+    return maintenanceAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (_, __) => const Text('Eroare la încărcarea mentenanței.'),
+      data: (records) {
+        if (records.isEmpty) {
+          return const Center(
+            child: Text('Nu există înregistrări de mentenanță.'),
+          );
+        }
+        return Column(
+          children: records
+              .map(
+                (m) => Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  child: ListTile(
+                    leading: const Icon(Icons.build_outlined),
+                    title: Text(m.type),
+                    subtitle: Text('${m.mileage} km'),
+                    trailing: Text(
+                      DateFormat('dd.MM.yyyy').format(m.date.toLocal()),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        );
+      },
     );
   }
 }

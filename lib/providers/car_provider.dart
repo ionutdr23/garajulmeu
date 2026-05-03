@@ -22,4 +22,8 @@ class CarService {
   Future<void> updateCar(String familyId, Car car) async {
     await _ref.read(carRepositoryProvider).updateCar(familyId, car);
   }
+
+  Future<void> deleteCar(String familyId, Car car) async {
+    await _ref.read(carRepositoryProvider).deleteCar(familyId, car);
+  }
 }

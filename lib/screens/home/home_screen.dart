@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../cars/cars_screen.dart';
+import '../maintenance/maintenance_screen.dart';
 
 final bottomNavIndexProvider = NotifierProvider<BottomNavNotifier, int>(
   BottomNavNotifier.new,
@@ -19,7 +20,7 @@ class HomeScreen extends ConsumerWidget {
 
   static const _screens = [
     CarsScreen(),
-    Placeholder(), // Mentenanță - pentru acum
+    MaintenanceScreen(),
     Placeholder(), // Setări - pentru acum
   ];
 
