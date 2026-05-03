@@ -9,12 +9,20 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset('assets/images/logo.png', width: 300),
+            Image.asset('assets/images/logo_trimmed.png', width: 300),
+            const SizedBox(height: 30),
+            Text(
+              'Garajul Meu',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                color: Theme.of(context).textTheme.titleLarge?.color,
+              ),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),

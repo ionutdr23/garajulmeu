@@ -28,6 +28,8 @@ class AppTheme {
         onPrimary: _darkBackground,
         onSecondary: _darkBackground,
         surfaceContainer: _darkButton,
+        error: Color(0xFFFF5555),
+        onError: _darkBackground,
       ),
       scaffoldBackgroundColor: _darkBackground,
       appBarTheme: const AppBarTheme(
@@ -60,6 +62,8 @@ class AppTheme {
         onPrimary: _lightBackground,
         onSecondary: _lightBackground,
         surfaceContainer: _lightButton,
+        error: Color(0xFFFF5555),
+        onError: _lightBackground,
       ),
       scaffoldBackgroundColor: _lightBackground,
       appBarTheme: const AppBarTheme(
