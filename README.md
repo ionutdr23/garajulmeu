@@ -11,12 +11,12 @@ Construită cu Flutter + Firebase, funcționează pe Android, iOS și Web.
 ## ✨ Funcționalități
 
 - 🔐 Autentificare cu Google
-- 🚘 Gestionarea mai multor vehicule per familie
+- 🚘 Gestionarea mai multor vehicule ale familiei
 - 📄 Urmărirea datelor de expirare ale documentelor (RCA, ITP, Rovinieta)
 - 🔧 Istoric de mentenanță (schimburi de ulei, filtre, frâne, etc.)
 - 🔔 Notificări push înainte ca documentele să expire
 - 🌐 Sincronizare în timp real pe toate dispozitivele
-- 🌙 Temă Dark / Light (inspirată din Dracula)
+- 🌙 Temă Dark / Light
 
 ---
 
@@ -122,6 +122,8 @@ lib/
 │   ├── car_provider.dart
 │   └── maintenance_provider.dart
 ├── screens/                   # Ecranele aplicației
+│   ├── home/
+│   │   └── home_screen.dart
 │   ├── auth/
 │   │   └── login_screen.dart
 │   ├── cars/
