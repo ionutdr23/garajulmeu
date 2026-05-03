@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:garajulmeu/screens/home/home_screen.dart';
 import 'firebase_options.dart';
 
 import 'theme.dart';
@@ -9,7 +10,6 @@ import 'providers/auth_provider.dart';
 import 'providers/user_profile_provider.dart';
 
 import 'screens/auth/login_screen.dart';
-import 'screens/home/home_screen.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 
 void main() async {

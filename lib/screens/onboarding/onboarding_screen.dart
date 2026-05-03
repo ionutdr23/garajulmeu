@@ -42,8 +42,30 @@ class OnboardingScreen extends ConsumerWidget {
                     title: const Text('Creează o familie'),
                     content: TextField(
                       controller: controller,
-                      decoration: const InputDecoration(
-                        hintText: 'Numele familiei (ex: Familia Popescu)',
+                      decoration: InputDecoration(
+                        labelText: 'Numele familiei',
+                        hintText: 'ex: Familia Popescu',
+                        prefixIcon: const Icon(Icons.group),
+                        filled: true,
+                        fillColor: Theme.of(
+                          context,
+                        ).colorScheme.surfaceContainer,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
                       ),
                     ),
                     actions: [
@@ -62,7 +84,7 @@ class OnboardingScreen extends ConsumerWidget {
 
                 if (confirmed == true && controller.text.isNotEmpty) {
                   await ref
-                      .read(familyService)
+                      .read(familyServiceProvider)
                       .createFamily(user.uid, controller.text);
                 }
               },
@@ -82,8 +104,30 @@ class OnboardingScreen extends ConsumerWidget {
                     title: const Text('Alătură-te unei familii'),
                     content: TextField(
                       controller: controller,
-                      decoration: const InputDecoration(
-                        hintText: 'Codul de invitație',
+                      decoration: InputDecoration(
+                        labelText: 'Codul de invitație',
+                        hintText: 'ex: ABC123',
+                        prefixIcon: const Icon(Icons.vpn_key),
+                        filled: true,
+                        fillColor: Theme.of(
+                          context,
+                        ).colorScheme.surfaceContainer,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
                       ),
                     ),
                     actions: [
@@ -103,7 +147,7 @@ class OnboardingScreen extends ConsumerWidget {
                 if (confirmed == true && controller.text.isNotEmpty) {
                   try {
                     await ref
-                        .read(familyService)
+                        .read(familyServiceProvider)
                         .joinFamily(user.uid, controller.text);
                   } catch (e) {
                     if (context.mounted) {

@@ -11,9 +11,15 @@ _Car _$CarFromJson(Map<String, dynamic> json) => _Car(
   name: json['name'] as String,
   plate: json['plate'] as String,
   year: (json['year'] as num).toInt(),
-  insuranceExpiry: DateTime.parse(json['insuranceExpiry'] as String),
-  itpExpiry: DateTime.parse(json['itpExpiry'] as String),
-  vignetteExpiry: DateTime.parse(json['vignetteExpiry'] as String),
+  insuranceExpiry: json['insuranceExpiry'] == null
+      ? null
+      : DateTime.parse(json['insuranceExpiry'] as String),
+  itpExpiry: json['itpExpiry'] == null
+      ? null
+      : DateTime.parse(json['itpExpiry'] as String),
+  vignetteExpiry: json['vignetteExpiry'] == null
+      ? null
+      : DateTime.parse(json['vignetteExpiry'] as String),
 );
 
 Map<String, dynamic> _$CarToJson(_Car instance) => <String, dynamic>{
@@ -21,7 +27,7 @@ Map<String, dynamic> _$CarToJson(_Car instance) => <String, dynamic>{
   'name': instance.name,
   'plate': instance.plate,
   'year': instance.year,
-  'insuranceExpiry': instance.insuranceExpiry.toIso8601String(),
-  'itpExpiry': instance.itpExpiry.toIso8601String(),
-  'vignetteExpiry': instance.vignetteExpiry.toIso8601String(),
+  'insuranceExpiry': instance.insuranceExpiry?.toIso8601String(),
+  'itpExpiry': instance.itpExpiry?.toIso8601String(),
+  'vignetteExpiry': instance.vignetteExpiry?.toIso8601String(),
 };

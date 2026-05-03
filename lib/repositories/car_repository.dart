@@ -45,11 +45,14 @@ class CarRepository {
     'name': car.name,
     'plate': car.plate,
     'year': car.year,
-    'insuranceExpiry': Timestamp.fromDate(car.insuranceExpiry),
-    'itpExpiry': Timestamp.fromDate(car.itpExpiry),
-    'vignetteExpiry': Timestamp.fromDate(car.vignetteExpiry),
+    'insuranceExpiry': _timestampFromDate(car.insuranceExpiry),
+    'itpExpiry': _timestampFromDate(car.itpExpiry),
+    'vignetteExpiry': _timestampFromDate(car.vignetteExpiry),
   };
 
-  String _timestamp(dynamic value) =>
-      (value as Timestamp).toDate().toIso8601String();
+  String? _timestamp(dynamic value) =>
+      value == null ? null : (value as Timestamp).toDate().toIso8601String();
+
+  Timestamp? _timestampFromDate(DateTime? value) =>
+      value == null ? null : Timestamp.fromDate(value);
 }

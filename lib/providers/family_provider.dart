@@ -11,7 +11,7 @@ final familyProvider = StreamProvider.family<Family?, String>((ref, familyId) {
   return ref.watch(familyRepositoryProvider).watchFamily(familyId);
 });
 
-final familyService = Provider((ref) => FamilyService(ref));
+final familyServiceProvider = Provider((ref) => FamilyService(ref));
 
 class FamilyService {
   final Ref _ref;

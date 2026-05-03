@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Car {
 
- String get id; String get name; String get plate; int get year; DateTime get insuranceExpiry; DateTime get itpExpiry; DateTime get vignetteExpiry;
+ String get id; String get name; String get plate; int get year; DateTime? get insuranceExpiry; DateTime? get itpExpiry; DateTime? get vignetteExpiry;
 /// Create a copy of Car
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CarCopyWith<$Res>  {
   factory $CarCopyWith(Car value, $Res Function(Car) _then) = _$CarCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String plate, int year, DateTime insuranceExpiry, DateTime itpExpiry, DateTime vignetteExpiry
+ String id, String name, String plate, int year, DateTime? insuranceExpiry, DateTime? itpExpiry, DateTime? vignetteExpiry
 });
 
 
@@ -65,16 +65,16 @@ class _$CarCopyWithImpl<$Res>
 
 /// Create a copy of Car
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? plate = null,Object? year = null,Object? insuranceExpiry = null,Object? itpExpiry = null,Object? vignetteExpiry = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? plate = null,Object? year = null,Object? insuranceExpiry = freezed,Object? itpExpiry = freezed,Object? vignetteExpiry = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,plate: null == plate ? _self.plate : plate // ignore: cast_nullable_to_non_nullable
 as String,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
-as int,insuranceExpiry: null == insuranceExpiry ? _self.insuranceExpiry : insuranceExpiry // ignore: cast_nullable_to_non_nullable
-as DateTime,itpExpiry: null == itpExpiry ? _self.itpExpiry : itpExpiry // ignore: cast_nullable_to_non_nullable
-as DateTime,vignetteExpiry: null == vignetteExpiry ? _self.vignetteExpiry : vignetteExpiry // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as int,insuranceExpiry: freezed == insuranceExpiry ? _self.insuranceExpiry : insuranceExpiry // ignore: cast_nullable_to_non_nullable
+as DateTime?,itpExpiry: freezed == itpExpiry ? _self.itpExpiry : itpExpiry // ignore: cast_nullable_to_non_nullable
+as DateTime?,vignetteExpiry: freezed == vignetteExpiry ? _self.vignetteExpiry : vignetteExpiry // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String plate,  int year,  DateTime insuranceExpiry,  DateTime itpExpiry,  DateTime vignetteExpiry)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String plate,  int year,  DateTime? insuranceExpiry,  DateTime? itpExpiry,  DateTime? vignetteExpiry)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Car() when $default != null:
 return $default(_that.id,_that.name,_that.plate,_that.year,_that.insuranceExpiry,_that.itpExpiry,_that.vignetteExpiry);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.name,_that.plate,_that.year,_that.insuranceExpiry
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String plate,  int year,  DateTime insuranceExpiry,  DateTime itpExpiry,  DateTime vignetteExpiry)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String plate,  int year,  DateTime? insuranceExpiry,  DateTime? itpExpiry,  DateTime? vignetteExpiry)  $default,) {final _that = this;
 switch (_that) {
 case _Car():
 return $default(_that.id,_that.name,_that.plate,_that.year,_that.insuranceExpiry,_that.itpExpiry,_that.vignetteExpiry);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.name,_that.plate,_that.year,_that.insuranceExpiry
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String plate,  int year,  DateTime insuranceExpiry,  DateTime itpExpiry,  DateTime vignetteExpiry)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String plate,  int year,  DateTime? insuranceExpiry,  DateTime? itpExpiry,  DateTime? vignetteExpiry)?  $default,) {final _that = this;
 switch (_that) {
 case _Car() when $default != null:
 return $default(_that.id,_that.name,_that.plate,_that.year,_that.insuranceExpiry,_that.itpExpiry,_that.vignetteExpiry);case _:
@@ -215,16 +215,16 @@ return $default(_that.id,_that.name,_that.plate,_that.year,_that.insuranceExpiry
 @JsonSerializable()
 
 class _Car implements Car {
-  const _Car({required this.id, required this.name, required this.plate, required this.year, required this.insuranceExpiry, required this.itpExpiry, required this.vignetteExpiry});
+  const _Car({required this.id, required this.name, required this.plate, required this.year, this.insuranceExpiry, this.itpExpiry, this.vignetteExpiry});
   factory _Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
 
 @override final  String id;
 @override final  String name;
 @override final  String plate;
 @override final  int year;
-@override final  DateTime insuranceExpiry;
-@override final  DateTime itpExpiry;
-@override final  DateTime vignetteExpiry;
+@override final  DateTime? insuranceExpiry;
+@override final  DateTime? itpExpiry;
+@override final  DateTime? vignetteExpiry;
 
 /// Create a copy of Car
 /// with the given fields replaced by the non-null parameter values.
@@ -259,7 +259,7 @@ abstract mixin class _$CarCopyWith<$Res> implements $CarCopyWith<$Res> {
   factory _$CarCopyWith(_Car value, $Res Function(_Car) _then) = __$CarCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String plate, int year, DateTime insuranceExpiry, DateTime itpExpiry, DateTime vignetteExpiry
+ String id, String name, String plate, int year, DateTime? insuranceExpiry, DateTime? itpExpiry, DateTime? vignetteExpiry
 });
 
 
@@ -276,16 +276,16 @@ class __$CarCopyWithImpl<$Res>
 
 /// Create a copy of Car
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? plate = null,Object? year = null,Object? insuranceExpiry = null,Object? itpExpiry = null,Object? vignetteExpiry = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? plate = null,Object? year = null,Object? insuranceExpiry = freezed,Object? itpExpiry = freezed,Object? vignetteExpiry = freezed,}) {
   return _then(_Car(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,plate: null == plate ? _self.plate : plate // ignore: cast_nullable_to_non_nullable
 as String,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
-as int,insuranceExpiry: null == insuranceExpiry ? _self.insuranceExpiry : insuranceExpiry // ignore: cast_nullable_to_non_nullable
-as DateTime,itpExpiry: null == itpExpiry ? _self.itpExpiry : itpExpiry // ignore: cast_nullable_to_non_nullable
-as DateTime,vignetteExpiry: null == vignetteExpiry ? _self.vignetteExpiry : vignetteExpiry // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as int,insuranceExpiry: freezed == insuranceExpiry ? _self.insuranceExpiry : insuranceExpiry // ignore: cast_nullable_to_non_nullable
+as DateTime?,itpExpiry: freezed == itpExpiry ? _self.itpExpiry : itpExpiry // ignore: cast_nullable_to_non_nullable
+as DateTime?,vignetteExpiry: freezed == vignetteExpiry ? _self.vignetteExpiry : vignetteExpiry // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

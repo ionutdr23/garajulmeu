@@ -6,8 +6,15 @@ class AppScaffold extends ConsumerWidget {
   final Widget body;
   final String? title;
   final List<Widget>? actions;
+  final Widget? floatingActionButton;
 
-  const AppScaffold({super.key, required this.body, this.title, this.actions});
+  const AppScaffold({
+    super.key,
+    required this.body,
+    this.title,
+    this.actions,
+    this.floatingActionButton,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,6 +39,7 @@ class AppScaffold extends ConsumerWidget {
         ],
       ),
       body: body,
+      floatingActionButton: floatingActionButton,
     );
   }
 }
