@@ -8,6 +8,8 @@ class AppTheme {
   static const _darkPrimary = Color(0xFFBD93F9);
   static const _darkSecondary = Color(0xFFFF79C6);
   static const _darkButton = Color(0xFF383A4A);
+  static const draculaYellow = Color(0xFFF1FA8C);
+  static const draculaGreen = Color(0xFF50FA7B);
 
   // Dracula Light colors
   static const _lightBackground = Color(0xFFF8F8F2);
@@ -16,6 +18,8 @@ class AppTheme {
   static const _lightPrimary = Color(0xFF7B5EA7);
   static const _lightSecondary = Color(0xFFC4417A);
   static const _lightButton = Color(0xFFD8D8F0);
+  static const lightYellow = Color(0xFFB8860B);
+  static const lightGreen = Color(0xFF2E7D32);
 
   static ThemeData get darkTheme {
     return ThemeData(
@@ -72,6 +76,12 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: _darkSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: _darkSurface,
+        selectedItemColor: _darkPrimary,
+        unselectedItemColor: _darkForeground.withValues(alpha: 0.5),
+        elevation: 0,
       ),
     );
   }
@@ -131,6 +141,12 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: _lightSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: _lightSurface,
+        selectedItemColor: _lightPrimary,
+        unselectedItemColor: _lightForeground.withValues(alpha: 0.5),
+        elevation: 0,
       ),
     );
   }

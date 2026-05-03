@@ -6,6 +6,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/car_provider.dart';
 import '../../providers/user_profile_provider.dart';
 import 'add_car_screen.dart';
+import '../../widgets/car_card.dart';
 
 class CarsScreen extends ConsumerWidget {
   const CarsScreen({super.key});
@@ -58,11 +59,7 @@ class CarsScreen extends ConsumerWidget {
             itemCount: carList.length,
             itemBuilder: (context, index) {
               final car = carList[index];
-              return ListTile(
-                leading: const Icon(Icons.directions_car),
-                title: Text(car.name),
-                subtitle: Text(car.plate),
-              );
+              return CarCard(car: car);
             },
           );
         },
