@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:garajulmeu/providers/maintenance_provider.dart';
 import 'package:garajulmeu/screens/cars/edit_car_screen.dart';
 import 'package:garajulmeu/screens/maintenance/add_maintenance_screen.dart';
+import 'package:garajulmeu/screens/maintenance/maintenance_detail_screen.dart';
+import 'package:garajulmeu/widgets/maintenance_card.dart';
 import 'package:intl/intl.dart';
 import 'package:garajulmeu/theme.dart';
 import 'package:garajulmeu/widgets/app_scaffold.dart';
-import '../../models/car.dart';
-import '../../providers/car_provider.dart';
-import '../../widgets/app_button.dart';
+import 'package:garajulmeu/models/car.dart';
+import 'package:garajulmeu/providers/car_provider.dart';
+import 'package:garajulmeu/widgets/app_button.dart';
 
 class CarDetailScreen extends ConsumerWidget {
   final Car car;
@@ -319,9 +321,7 @@ class _MaintenanceList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final maintenanceAsync = ref.watch(
-      maintenanceProvider((familyId, carId)),
-    );
+    final maintenanceAsync = ref.watch(maintenanceProvider((familyId, carId)));
 
     return maintenanceAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -335,19 +335,20 @@ class _MaintenanceList extends ConsumerWidget {
         return Column(
           children: records
               .map(
-                (m) => Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  margin: const EdgeInsets.symmetric(vertical: 4),
-                  child: ListTile(
-                    leading: const Icon(Icons.build_outlined),
-                    title: Text(m.type),
-                    subtitle: Text('${m.mileage} km'),
-                    trailing: Text(
-                      DateFormat('dd.MM.yyyy').format(m.date.toLocal()),
-                      style: Theme.of(context).textTheme.bodyMedium,
+                (m) => GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => MaintenanceDetailScreen(
+                        familyId: familyId,
+                        carId: carId,
+                        maintenance: m,
+                      ),
                     ),
+                  ),
+                  child: MaintenanceCard(
+                    maintenance: m,
+                    familyId: familyId,
+                    carId: carId,
                   ),
                 ),
               )

@@ -62,6 +62,9 @@ dependencies:
   # Date formatting
   intl: ^0.20.2
 
+  # Reactive programming
+  rxdart: ^0.28.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
