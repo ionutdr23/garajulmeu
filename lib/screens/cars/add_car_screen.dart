@@ -146,7 +146,7 @@ class _AddCarScreenState extends ConsumerState<AddCarScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: _insuranceController,
                     readOnly: true,
@@ -158,7 +158,7 @@ class _AddCarScreenState extends ConsumerState<AddCarScreen> {
                       suffixIcon: Icon(Icons.calendar_month),
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: _itpController,
                     readOnly: true,
@@ -170,7 +170,7 @@ class _AddCarScreenState extends ConsumerState<AddCarScreen> {
                       suffixIcon: Icon(Icons.calendar_month),
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: _vignetteController,
                     readOnly: true,
