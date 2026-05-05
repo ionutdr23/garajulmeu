@@ -122,7 +122,7 @@ class _AddMaintenanceScreenState extends ConsumerState<AddMaintenanceScreen> {
               child: Column(
                 children: [
                   DropdownButtonFormField<String>(
-                    value: _selectedType,
+                    initialValue: _selectedType,
                     decoration: const InputDecoration(
                       labelText: 'Tip mentenanță',
                       prefixIcon: Icon(Icons.build_outlined),
@@ -171,11 +171,13 @@ class _AddMaintenanceScreenState extends ConsumerState<AddMaintenanceScreen> {
                       }
                       return null;
                     },
+                    maxLength: 7,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _notesController,
                     maxLines: 3,
+                    maxLength: 30,
                     decoration: const InputDecoration(
                       labelText: 'Note (opțional)',
                       hintText: 'ex: Castrol 5W-40',
@@ -214,6 +216,7 @@ class _AddMaintenanceScreenState extends ConsumerState<AddMaintenanceScreen> {
                       hintText: 'ex: 97500',
                       prefixIcon: Icon(Icons.speed_outlined),
                     ),
+                    maxLength: 7,
                   ),
                 ],
               ),

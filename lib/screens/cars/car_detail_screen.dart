@@ -127,7 +127,7 @@ class CarDetailScreen extends ConsumerWidget {
               },
             ),
             _DocumentTile(
-              label: 'Rovinieta',
+              label: 'Rovinietă',
               icon: Icons.receipt_long_outlined,
               expiry: currentCar.vignetteExpiry,
               onEdit: () async {

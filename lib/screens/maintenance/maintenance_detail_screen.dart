@@ -80,20 +80,50 @@ class MaintenanceDetailScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    _DetailRow(icon: Icons.build_outlined, label: 'Tip', value: currentMaintenance.type),
-                    _DetailRow(icon: Icons.calendar_today, label: 'Data', value: DateFormat('dd.MM.yyyy').format(currentMaintenance.date.toLocal())),
-                    _DetailRow(icon: Icons.speed, label: 'Kilometraj', value: '${currentMaintenance.mileage} km'),
+                    _DetailRow(
+                      icon: Icons.build_outlined,
+                      label: 'Tip',
+                      value: currentMaintenance.type,
+                    ),
+                    _DetailRow(
+                      icon: Icons.calendar_today,
+                      label: 'Data',
+                      value: DateFormat(
+                        'dd.MM.yyyy',
+                      ).format(currentMaintenance.date.toLocal()),
+                    ),
+                    _DetailRow(
+                      icon: Icons.speed,
+                      label: 'Kilometraj',
+                      value: '${currentMaintenance.mileage} km',
+                    ),
                     if (currentMaintenance.notes != null)
-                      _DetailRow(icon: Icons.notes, label: 'Note', value: currentMaintenance.notes!),
+                      _DetailRow(
+                        icon: Icons.notes,
+                        label: 'Note',
+                        value: currentMaintenance.notes!,
+                      ),
                     if (currentMaintenance.nextDate != null)
-                      _DetailRow(icon: Icons.event, label: 'Data următoare', value: DateFormat('dd.MM.yyyy').format(currentMaintenance.nextDate!.toLocal())),
+                      _DetailRow(
+                        icon: Icons.event,
+                        label: 'Data următoare',
+                        value: DateFormat(
+                          'dd.MM.yyyy',
+                        ).format(currentMaintenance.nextDate!.toLocal()),
+                      ),
                     if (currentMaintenance.nextMileage != null)
-                      _DetailRow(icon: Icons.speed_outlined, label: 'Km următori', value: '${currentMaintenance.nextMileage} km'),
+                      _DetailRow(
+                        icon: Icons.speed_outlined,
+                        label: 'Km următori',
+                        value: '${currentMaintenance.nextMileage} km',
+                      ),
                   ],
                 ),
               ),
@@ -121,23 +151,32 @@ class _DetailRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 12),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(
-                context,
-              ).colorScheme.onSurface.withValues(alpha: 0.6),
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
             ),
           ),
-          const Spacer(),
-          Text(
-            value,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+          Expanded(
+            flex: 4,
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+            ),
           ),
         ],
       ),

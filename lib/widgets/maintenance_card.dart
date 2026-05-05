@@ -47,6 +47,8 @@ class MaintenanceCard extends StatelessWidget {
                   children: [
                     Text(
                       maintenance.type,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -54,6 +56,8 @@ class MaintenanceCard extends StatelessWidget {
                     if (car != null)
                       Text(
                         car!.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,
