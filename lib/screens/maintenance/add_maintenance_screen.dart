@@ -35,6 +35,7 @@ class AddMaintenanceScreen extends ConsumerStatefulWidget {
 
 class _AddMaintenanceScreenState extends ConsumerState<AddMaintenanceScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _typeController = TextEditingController();
   final _dateController = TextEditingController();
   final _mileageController = TextEditingController();
   final _notesController = TextEditingController();
@@ -45,6 +46,7 @@ class _AddMaintenanceScreenState extends ConsumerState<AddMaintenanceScreen> {
 
   @override
   void dispose() {
+    _typeController.dispose();
     _dateController.dispose();
     _mileageController.dispose();
     _notesController.dispose();
@@ -121,20 +123,34 @@ class _AddMaintenanceScreenState extends ConsumerState<AddMaintenanceScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  DropdownButtonFormField<String>(
-                    initialValue: _selectedType,
+                  TextFormField(
+                    readOnly: true,
+                    controller: _typeController,
+                    onTap: () async {
+                      final selected = await showModalBottomSheet<String>(
+                        context: context,
+                        builder: (context) => ListView(
+                          children: _maintenanceTypes
+                              .map(
+                                (type) => ListTile(
+                                  title: Text(type),
+                                  onTap: () => Navigator.of(context).pop(type),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      );
+                      if (selected != null) {
+                        setState(() => _selectedType = selected);
+                        _typeController.text = selected;
+                      }
+                    },
                     decoration: const InputDecoration(
                       labelText: 'Tip mentenanță',
                       prefixIcon: Icon(Icons.build_outlined),
+                      suffixIcon: Icon(Icons.arrow_drop_down),
                     ),
-                    items: _maintenanceTypes
-                        .map(
-                          (type) =>
-                              DropdownMenuItem(value: type, child: Text(type)),
-                        )
-                        .toList(),
-                    onChanged: (value) => setState(() => _selectedType = value),
-                    validator: (value) => value == null
+                    validator: (value) => _selectedType == null
                         ? 'Selectează tipul de mentenanță.'
                         : null,
                   ),
