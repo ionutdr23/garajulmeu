@@ -36,11 +36,26 @@ class HomeScreen extends ConsumerWidget {
             ref.read(bottomNavIndexProvider.notifier).setIndex(index),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8),
+              child: Icon(Icons.directions_car),
+            ),
             label: 'Mașini',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.build), label: 'Mentenanță'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setări'),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8),
+              child: Icon(Icons.build),
+            ),
+            label: 'Mentenanță',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8),
+              child: Icon(Icons.settings),
+            ),
+            label: 'Setări',
+          ),
         ],
       ),
     );
