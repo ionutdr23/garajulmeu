@@ -83,6 +83,12 @@ class AppTheme {
         unselectedItemColor: _darkForeground.withValues(alpha: 0.5),
         elevation: 0,
       ),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
     );
   }
 
@@ -147,6 +153,12 @@ class AppTheme {
         selectedItemColor: _lightPrimary,
         unselectedItemColor: _lightForeground.withValues(alpha: 0.5),
         elevation: 0,
+      ),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
       ),
     );
   }
