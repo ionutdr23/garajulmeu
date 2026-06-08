@@ -8,7 +8,7 @@ class CarCard extends StatelessWidget {
 
   const CarCard({super.key, required this.car});
 
-Color _toColor(DateTime? expiry, BuildContext context) {
+  Color _toColor(DateTime? expiry, BuildContext context) {
     if (expiry == null) {
       return Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4);
     }
@@ -16,7 +16,9 @@ Color _toColor(DateTime? expiry, BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final now = DateTime.now();
 
-    if (expiry.isBefore(now.add(const Duration(days: 15)))) return Theme.of(context).colorScheme.error;
+    if (expiry.isBefore(now.add(const Duration(days: 15)))) {
+      return Theme.of(context).colorScheme.error;
+    }
     if (expiry.isBefore(now.add(const Duration(days: 30)))) {
       return isDark ? AppTheme.draculaYellow : AppTheme.lightYellow;
     }

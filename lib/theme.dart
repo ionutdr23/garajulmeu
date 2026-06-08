@@ -24,7 +24,7 @@ class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: const ColorScheme.dark(
+      colorScheme: ColorScheme.dark(
         surface: _darkSurface,
         primary: _darkPrimary,
         secondary: _darkSecondary,
@@ -32,8 +32,31 @@ class AppTheme {
         onPrimary: _darkBackground,
         onSecondary: _darkBackground,
         surfaceContainer: _darkButton,
-        error: Color(0xFFFF5555),
+        error: const Color(0xFFFF5555),
         onError: _darkBackground,
+        secondaryContainer: _darkPrimary.withValues(alpha: 0.2),
+        onSecondaryContainer: _darkPrimary,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: _darkSurface,
+        indicatorColor: _darkPrimary.withValues(alpha: 0.2),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return TextStyle(color: _darkPrimary, fontWeight: FontWeight.w600);
+          }
+          return TextStyle(color: _darkForeground.withValues(alpha: 0.5));
+        }),
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return IconThemeData(color: _darkPrimary);
+          }
+          return IconThemeData(color: _darkForeground.withValues(alpha: 0.5));
+        }),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: _darkPrimary,
+        foregroundColor: _darkBackground,
+        splashColor: _darkBackground.withValues(alpha: 0.3),
       ),
       scaffoldBackgroundColor: _darkBackground,
       appBarTheme: const AppBarTheme(
@@ -77,12 +100,6 @@ class AppTheme {
         backgroundColor: _darkSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: _darkSurface,
-        selectedItemColor: _darkPrimary,
-        unselectedItemColor: _darkForeground.withValues(alpha: 0.5),
-        elevation: 0,
-      ),
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {
           TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
@@ -95,7 +112,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: const ColorScheme.light(
+      colorScheme: ColorScheme.light(
         surface: _lightSurface,
         primary: _lightPrimary,
         secondary: _lightSecondary,
@@ -103,8 +120,31 @@ class AppTheme {
         onPrimary: _lightBackground,
         onSecondary: _lightBackground,
         surfaceContainer: _lightButton,
-        error: Color(0xFFFF5555),
+        error: const Color(0xFFFF5555),
         onError: _lightBackground,
+        secondaryContainer: _lightPrimary.withValues(alpha: 0.2),
+        onSecondaryContainer: _lightPrimary,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: _lightSurface,
+        indicatorColor: _lightPrimary.withValues(alpha: 0.2),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return TextStyle(color: _lightPrimary, fontWeight: FontWeight.w600);
+          }
+          return TextStyle(color: _lightForeground.withValues(alpha: 0.5));
+        }),
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return IconThemeData(color: _lightPrimary);
+          }
+          return IconThemeData(color: _lightForeground.withValues(alpha: 0.5));
+        }),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: _lightPrimary,
+        foregroundColor: _lightBackground,
+        splashColor: _lightBackground.withValues(alpha: 0.3),
       ),
       scaffoldBackgroundColor: _lightBackground,
       appBarTheme: const AppBarTheme(
@@ -147,12 +187,6 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: _lightSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: _lightSurface,
-        selectedItemColor: _lightPrimary,
-        unselectedItemColor: _lightForeground.withValues(alpha: 0.5),
-        elevation: 0,
       ),
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {

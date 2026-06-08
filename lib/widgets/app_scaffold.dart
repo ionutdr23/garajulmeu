@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/auth_provider.dart';
 
 class AppScaffold extends ConsumerWidget {
   final Widget body;
@@ -21,26 +20,7 @@ class AppScaffold extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset('assets/images/logo_trimmed.png', width: 80),
-            SizedBox(width: 15),
-            Text('Garajul Meu'),
-          ],
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              ref.read(authServiceProvider).signOut();
-            },
-          ),
-        ],
-      ),
-      body: body,
+      body: SafeArea(child: body),
       floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomWidget != null
           ? Padding(

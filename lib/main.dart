@@ -1,17 +1,17 @@
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:garajulmeu/screens/home/home_screen.dart';
-import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'theme.dart';
 
 import 'providers/auth_provider.dart';
 import 'providers/user_profile_provider.dart';
+import 'package:garajulmeu/providers/theme_provider.dart';
 
 import 'screens/auth/login_screen.dart';
 import 'screens/onboarding/onboarding_screen.dart';
+import 'package:garajulmeu/screens/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ class AppRouter extends ConsumerWidget {
     return authState.when(
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
-      error: (_, __) => const LoginScreen(),
+      error: (_, _) => const LoginScreen(),
       data: (user) {
         if (user == null) return const LoginScreen();
 
@@ -39,7 +39,7 @@ class AppRouter extends ConsumerWidget {
         return userProfile.when(
           loading: () =>
               const Scaffold(body: Center(child: CircularProgressIndicator())),
-          error: (_, __) => const LoginScreen(),
+          error: (_, _) => const LoginScreen(),
           data: (profile) {
             if (profile == null || profile.familyId == null) {
               return const OnboardingScreen();
@@ -61,7 +61,7 @@ class MyApp extends ConsumerWidget {
       title: 'Garajul Meu',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ref.watch(themeModeProvider),
       builder:(context, child) => GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: child,

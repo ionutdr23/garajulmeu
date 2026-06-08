@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:garajulmeu/screens/settings/settings_screen.dart';
 
 import '../cars/cars_screen.dart';
 import '../maintenance/maintenance_screen.dart';
@@ -18,11 +19,7 @@ class BottomNavNotifier extends Notifier<int> {
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
-  static const _screens = [
-    CarsScreen(),
-    MaintenanceScreen(),
-    Placeholder(), // Setări - pentru acum
-  ];
+  static const _screens = [CarsScreen(), MaintenanceScreen(), SettingsScreen()];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,32 +27,17 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       body: _screens[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) =>
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: currentIndex,
+        onDestinationSelected: (index) =>
             ref.read(bottomNavIndexProvider.notifier).setIndex(index),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Icon(Icons.directions_car),
-            ),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.directions_car),
             label: 'Mașini',
           ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Icon(Icons.build),
-            ),
-            label: 'Mentenanță',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Icon(Icons.settings),
-            ),
-            label: 'Setări',
-          ),
+          NavigationDestination(icon: Icon(Icons.build), label: 'Mentenanță'),
+          NavigationDestination(icon: Icon(Icons.settings), label: 'Setări'),
         ],
       ),
     );

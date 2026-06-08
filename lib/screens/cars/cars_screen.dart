@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:garajulmeu/widgets/app_scaffold.dart';
 import 'package:garajulmeu/providers/auth_provider.dart';
 import 'package:garajulmeu/providers/user_profile_provider.dart';
 import 'package:garajulmeu/providers/car_provider.dart';
 import 'package:garajulmeu/screens/cars/add_car_screen.dart';
-import 'package:garajulmeu/widgets/car_card.dart';
 import 'package:garajulmeu/screens/cars/car_detail_screen.dart';
+import 'package:garajulmeu/widgets/app_scaffold.dart';
+import 'package:garajulmeu/widgets/car_card.dart';
 
 class CarsScreen extends ConsumerWidget {
   const CarsScreen({super.key});
@@ -23,13 +23,11 @@ class CarsScreen extends ConsumerWidget {
         onPressed: () => Navigator.of(
           context,
         ).push(MaterialPageRoute(builder: (_) => const AddCarScreen())),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         child: const Icon(Icons.add),
       ),
       body: cars.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Center(
+        error: (_, _) => const Center(
           child: Text('Nu am putut încărca mașinile. Încearcă din nou.'),
         ),
         data: (carList) {

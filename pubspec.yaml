@@ -65,6 +65,9 @@ dependencies:
   # Reactive programming
   rxdart: ^0.28.0
 
+  # Local storage
+  shared_preferences: ^2.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
